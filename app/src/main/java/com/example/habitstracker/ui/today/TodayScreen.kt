@@ -8,29 +8,26 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun TodayScreen(
-    vm: TodayViewModel = viewModel()
+    state: TodayScreenState,
+    onToggle: (habit: com.example.habitstracker.domain.model.Habit, checked: Boolean) -> Unit
 ) {
-    val items = vm.items.collectAsState().value
-
     LazyColumn {
-        items(items) { item ->
+        items(state.items) { item ->
             Row(
-                modifier = Modifier.clickable { vm.toggle(item.habit.id) },
+                modifier = Modifier.clickable { onToggle(item.habit, !item.checked) },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = item.habit.emoji, modifier = Modifier.padding(16.dp))
                 Text(text = item.habit.title, modifier = Modifier.weight(1f))
                 Checkbox(
-                    checked = item.checkedToday,
-                    onCheckedChange = { vm.toggle(item.habit.id) },
+                    checked = item.checked,
+                    onCheckedChange = { checked -> onToggle(item.habit, checked) },
                     modifier = Modifier.padding(16.dp)
                 )
             }
