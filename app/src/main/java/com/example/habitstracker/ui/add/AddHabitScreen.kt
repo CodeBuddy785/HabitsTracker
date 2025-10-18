@@ -1,6 +1,8 @@
 package com.example.habitstracker.ui.add
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -18,7 +20,17 @@ fun AddHabitScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Add Habit") })
+            TopAppBar(
+                title = { Text("Add Habit") },
+                navigationIcon = {
+                    IconButton(onClick = onDone) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                }
+            )
         }
     ) { inner ->
         Column(

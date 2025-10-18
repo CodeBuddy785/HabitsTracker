@@ -17,6 +17,10 @@ class RoomHabitRepository(
         }
     }
 
+    override fun getHabit(id: Long): Flow<Habit?> {
+        return habitDao.getById(id).map { it?.toModel() }
+    }
+
     override suspend fun insertHabit(habit: Habit) {
         habitDao.insert(habit.toEntity())
     }

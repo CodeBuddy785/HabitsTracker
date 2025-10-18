@@ -19,7 +19,8 @@ import com.example.habitstracker.domain.model.Habit
 fun TodayScreen(
     state: TodayScreenState,
     onToggle: (habit: Habit, checked: Boolean) -> Unit,
-    onAddHabit: () -> Unit
+    onAddHabit: () -> Unit,
+    onOpenHabit: (id: Long) -> Unit
 ) {
     Scaffold(
         floatingActionButton = {
@@ -31,7 +32,7 @@ fun TodayScreen(
         LazyColumn(modifier = Modifier.padding(innerPadding)) {
             items(state.items) { item ->
                 Row(
-                    modifier = Modifier.clickable { onToggle(item.habit, !item.checked) },
+                    modifier = Modifier.clickable { onOpenHabit(item.habit.id) },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(text = item.habit.emoji, modifier = Modifier.padding(16.dp))
