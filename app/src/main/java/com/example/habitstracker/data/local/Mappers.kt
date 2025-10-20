@@ -6,10 +6,10 @@ import com.example.habitstracker.domain.util.DaysMask
 fun Habit.toEntity() = HabitEntity(
     id = id,
     title = title,
-    emoji = emoji,
+    emoji = emoji ?: "",
     daysOfWeekMask = DaysMask.fromSet(daysOfWeek),
-    reminderHour = reminderHour,
-    reminderMinute = reminderMinute
+    reminderHour = reminderHour ?: 9,
+    reminderMinute = reminderMinute ?: 0
 )
 
 fun HabitEntity.toModel() = Habit(

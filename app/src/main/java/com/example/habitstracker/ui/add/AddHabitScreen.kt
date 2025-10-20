@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.habitstracker.ui.components.WeekdayChips
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -17,6 +18,9 @@ fun AddHabitScreen(
 ) {
     var title by remember { mutableStateOf("") }
     var emoji by remember { mutableStateOf("") }
+    var days by remember { mutableStateOf(setOf(1, 2, 3, 4, 5, 6, 7)) }
+    var hour by remember { mutableStateOf("") }
+    var minute by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -47,7 +51,6 @@ fun AddHabitScreen(
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
-
             OutlinedTextField(
                 value = emoji,
                 onValueChange = { emoji = it },
@@ -55,25 +58,32 @@ fun AddHabitScreen(
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
-
-            Text(
-                "Schedule: Every day (MVP). " +
-                        "We’ll add custom days + reminders in the next step.",
-                style = MaterialTheme.typography.bodySmall
-            )
-
-            Spacer(Modifier.height(8.dp))
-
+            Text("Repeat on:")
+            WeekdayChips(selected = days, onChange = { days = it })
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedTextField(
+                    value = hour,
+                    onValueChange = { hour = it.filter { ch -> ch.isDigit() }.take(2) },
+                    label = { Text("Hour (0-23)") },
+                    singleLine = true
+                )
+                OutlinedTextField(
+                    value = minute,
+                    onValueChange = { minute = it.filter { ch -> ch.isDigit() }.take(2) },
+                    label = { Text("Min (0-59)") },
+                    singleLine = true
+                )
+            }
             Button(
                 onClick = {
-                    vm.addHabit(title, emoji.ifBlank { null })
+                    val h = hour.toIntOrNull()
+                    val m = minute.toIntOrNull()
+                    vm.addHabit(title, emoji.ifBlank { null }, days, h, m)
                     onDone()
                 },
                 enabled = title.isNotBlank(),
                 modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Save")
-            }
+            ) { Text("Save") }
         }
     }
 }

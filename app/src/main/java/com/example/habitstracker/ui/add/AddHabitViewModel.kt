@@ -11,16 +11,22 @@ class AddHabitViewModel(
     private val habitRepo: HabitRepository = Graph.habitRepository
 ) : ViewModel() {
 
-    fun addHabit(title: String, emoji: String?) {
+    fun addHabit(
+        title: String,
+        emoji: String?,
+        days: Set<Int>,
+        hour: Int?,
+        minute: Int?
+    ) {
         viewModelScope.launch {
             habitRepo.insertHabit(
                 Habit(
                     id = 0, // auto-generates
                     title = title,
-                    emoji = emoji ?: "", // Use provided emoji or empty string
-                    daysOfWeek = setOf(1, 2, 3, 4, 5, 6, 7), // Every day for MVP
-                    reminderHour = 9, // Default reminder
-                    reminderMinute = 0
+                    emoji = emoji ?: "",
+                    daysOfWeek = days,
+                    reminderHour = hour ?: 9,
+                    reminderMinute = minute ?: 0
                 )
             )
         }

@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.example.habitstracker"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.habitstracker"
-        minSdk = 24
-        targetSdk = 34
+        minSdk = 31
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -60,6 +60,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.navigation:navigation-compose:2.7.6")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

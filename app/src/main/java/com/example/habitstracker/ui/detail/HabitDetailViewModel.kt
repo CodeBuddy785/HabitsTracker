@@ -7,7 +7,6 @@ import com.example.habitstracker.data.repo.HabitRepository
 import com.example.habitstracker.domain.model.Habit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HabitDetailViewModel(

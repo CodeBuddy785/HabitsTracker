@@ -35,7 +35,7 @@ fun TodayScreen(
                     modifier = Modifier.clickable { onOpenHabit(item.habit.id) },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = item.habit.emoji, modifier = Modifier.padding(16.dp))
+                    item.habit.emoji?.let { Text(text = it, modifier = Modifier.padding(16.dp)) }
                     Text(text = item.habit.title, modifier = Modifier.weight(1f))
                     Checkbox(
                         checked = item.checked,
